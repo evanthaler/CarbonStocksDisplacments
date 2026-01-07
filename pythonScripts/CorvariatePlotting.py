@@ -42,8 +42,6 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     
     plt.figure()
     plt.plot(df.mean_disp_rate,df.Total_C_stock_kg_m2_0to50cm,'ok')
-    #plt.scatter(df.mean_disp_rate,df.Total_C_stock_kg_m2_0to50cm,c=df.curv,s=500)
-    plt.colorbar(label='Slope (degrees)')
     plt.plot(x_fit, y_fit, color='k', lw=2)
     plt.axvspan(
         x0 - x0_ci, x0 + x0_ci,
@@ -52,10 +50,13 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     )
     plt.ylabel('Soil organic carbon stock (kg m$^{-2}$)')
     plt.xlabel('Horizontal displacement rate (m yr$^{-1}$)')
-    #plt.savefig('/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/figs/SOCStock_DisplacementCombinedSites.jpg',dpi=300)
+    plt.tight_layout()
+    plt.savefig(outfig)
     plt.show()
 
 
+fitDispAllData(df_sites,'/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/figs/SOCStock_DisplacementCombinedSites.jpg')
+###################################################################
 def normalizeDisplacement(df,site,dispcol = 'mean_disp_rate',sitecol='Site'):
     df_site = df[df[sitecol]==site]
     disp_norm = df_site[dispcol]/np.max(df_site[dispcol])
@@ -77,71 +78,126 @@ df_sites = df_sites.rename(columns = col_dict)
 df_sites['normalized_disp'] = np.zeros(len(df_sites['mean_disp_rate']))
 df_sites.loc[df_sites['Site'] == 'TL27', 'normalized_disp'] = tl27dispnorm
 df_sites.loc[df_sites['Site'] == 'TL47', 'normalized_disp'] = tl47dispnorm
-#######################
+#############################
 tl27_df = df_sites[df_sites.Site=='TL27']
 tl47_df = df_sites[df_sites.Site=='TL47']
 
 #########
-#Plotting
+#Plotting Displacment and covars for each site
 #########
 cols = ['Slope (degrees)',
             'Curvature (m$^{-1}$)',
-            'Drainage area (m$^{2}$)',
-            'NDVI']
-fig, axes = plt.subplots(2, 2, figsize=(10, 8), sharex=True)
+            'Drainage area (m$^{2}$)']
+
+fig, axes = plt.subplots(1,3, figsize=(10, 5), sharey=True)
 axes = axes.flatten()
 for ax, col in zip(axes, cols):
-    linstats_47 = linregress(tl47_df.normalized_disp, tl47_df[col])
-    linstats_27 = linregress(tl27_df.normalized_disp, tl27_df[col])
-    yline_47 = linstats_47.slope * tl47_df.normalized_disp + linstats_47.intercept
-    yline_27 = linstats_27.slope * tl27_df.normalized_disp + linstats_27.intercept
-    ax.plot(tl47_df.normalized_disp, tl47_df[col], 'ok', label='TL47')
-    ax.plot(tl27_df.normalized_disp, tl27_df[col], 'ob', label='TL27')
+    linstats_47 = linregress(tl47_df[col],tl47_df.mean_disp_rate)
+    linstats_27 = linregress(tl27_df[col],tl27_df.mean_disp_rate)
+    yline_47 = linstats_47.slope * tl47_df[col] + linstats_47.intercept
+    yline_27 = linstats_27.slope * tl27_df[col] + linstats_27.intercept
+    ax.plot(tl47_df[col],tl47_df.mean_disp_rate,  'ok', label='TL47')
+    ax.plot(tl27_df[col],tl27_df.mean_disp_rate,  'ob', label='TL27')
     if linstats_47.pvalue < 0.05:
-        ax.plot(tl47_df.normalized_disp, yline_47, '-k', lw=2)
+        ax.plot(tl47_df[col], yline_47, '-k', lw=2)
     else:
-        ax.plot(tl47_df.normalized_disp, yline_47, 'x-k', lw=2, ms=10)
+        ax.plot(tl47_df[col], yline_47, 'x-r', lw=2, ms=10)
     if linstats_27.pvalue < 0.05:
-        ax.plot(tl27_df.normalized_disp, yline_27, '-b', lw=2)
+        ax.plot(tl27_df[col], yline_27, '-b', lw=2)
     else:
-        ax.plot(tl27_df.normalized_disp, yline_27, 'x-b', lw=2, ms=10)
-    ax.set_ylabel(col)
+        ax.plot(tl27_df[col], yline_27, 'x-r', lw=2, ms=10)
+    ax.set_xlabel(col)
     print(f"{col} | TL47 p={linstats_47.pvalue:.3g}, TL27 p={linstats_27.pvalue:.3g}")
-for ax in axes[2:]:
-    ax.set_xlabel('Normalized horizontal displacement')
+for ax in axes[[0]]:
+    ax.set_ylabel('Horizontal displacement (m yr$^{-1}$)')
 
 axes[1].legend(loc='upper left')
 plt.tight_layout()
 plt.savefig('/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/figs/DisplacementCovariates.jpg', dpi=300)
 plt.show()
 
-cols = ['Slope (degrees)',
-            'Curvature (m$^{-1}$)',
-            'Drainage area (m$^{2}$)',
-            'NDVI']
-fig, axes = plt.subplots(2, 2, figsize=(10, 8), sharex=True)
+#########
+#Plotting carbon and covars for each site
+#########
+fig, axes = plt.subplots(1,3, figsize=(10, 5), sharey=True)
 axes = axes.flatten()
 for ax, col in zip(axes, cols):
-    linstats_47 = linregress(tl47_df.Total_C_stock_kg_m2_0to50cm, tl47_df[col])
-    linstats_27 = linregress(tl27_df.Total_C_stock_kg_m2_0to50cm, tl27_df[col])
-    yline_47 = linstats_47.slope * tl47_df.Total_C_stock_kg_m2_0to50cm + linstats_47.intercept
-    yline_27 = linstats_27.slope * tl27_df.Total_C_stock_kg_m2_0to50cm + linstats_27.intercept
-    ax.plot(tl47_df.Total_C_stock_kg_m2_0to50cm, tl47_df[col], 'ok', label='TL47')
-    ax.plot(tl27_df.Total_C_stock_kg_m2_0to50cm, tl27_df[col], 'ob', label='TL27')
+    linstats_47 = linregress(tl47_df[col],tl47_df.Total_C_stock_kg_m2_0to50cm )
+    linstats_27 = linregress(tl27_df[col],tl27_df.Total_C_stock_kg_m2_0to50cm )
+    yline_47 = linstats_47.slope * tl47_df[col] + linstats_47.intercept
+    yline_27 = linstats_27.slope * tl27_df[col] + linstats_27.intercept
+    ax.plot(tl47_df[col],tl47_df.Total_C_stock_kg_m2_0to50cm , 'ok', label='TL47')
+    ax.plot(tl27_df[col],tl27_df.Total_C_stock_kg_m2_0to50cm, 'ob', label='TL27')
     if linstats_47.pvalue < 0.05:
-        ax.plot(tl47_df.Total_C_stock_kg_m2_0to50cm, yline_47, '-k', lw=2)
+        ax.plot(tl47_df[col], yline_47, '-k', lw=2)
     else:
-        ax.plot(tl47_df.Total_C_stock_kg_m2_0to50cm, yline_47, 'x-k', lw=2, ms=10)
+        ax.plot(tl47_df[col], yline_47, 'x-r', lw=2, ms=10)
     if linstats_27.pvalue < 0.05:
-        ax.plot(tl27_df.Total_C_stock_kg_m2_0to50cm, yline_27, '-b', lw=2)
+        ax.plot(tl27_df[col], yline_27, '-b', lw=2)
     else:
-        ax.plot(tl27_df.Total_C_stock_kg_m2_0to50cm, yline_27, 'x-b', lw=2, ms=10)
-    ax.set_ylabel(col)
+        ax.plot(tl27_df[col], yline_27, 'x-r', lw=2, ms=10)
+    ax.set_xlabel(col)
     print(f"{col} | TL47 p={linstats_47.pvalue:.3g}, TL27 p={linstats_27.pvalue:.3g}")
-for ax in axes[2:]:
-    ax.set_xlabel('Soil organic carbon stocks (kg m$^{-2}$)')
+for ax in axes[[0]]:
+    ax.set_ylabel('Soil organic carbon stocks (kg m$^{-2}$)')
 
 axes[1].legend(loc='upper right')
 plt.tight_layout()
 plt.savefig('/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/figs/CstocksCovariates.jpg', dpi=300)
+plt.show()
+
+
+#########
+#Plotting carbon and covars for combined sites
+#########
+
+fig, axes = plt.subplots(1,3, figsize=(10, 5), sharey=True)
+axes = axes.flatten()
+for ax, col in zip(axes, cols):
+    x = df_sites[col]
+    y = df_sites.Total_C_stock_kg_m2_0to50cm
+    linstats_carb = linregress(x,y)
+    yline_disp = linstats_carb.slope * x + linstats_carb.intercept
+    ax.plot(x,y, 'ok')
+    print(f"{col} | p={linstats_carb.pvalue:.3g}")
+    if linstats_carb.pvalue < 0.05:
+        ax.plot(x, yline_disp, '-k', lw=2)
+    else:
+        ax.plot(x, yline_disp, 'x-r', lw=2, ms=10)
+
+    ax.set_xlabel(col)
+
+for ax in axes[[0]]:
+    ax.set_ylabel('Soil organic carbon stocks (kg m$^{-2}$)')
+
+plt.tight_layout()
+plt.savefig('/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/figs/CstocksCovariates_BothSites.jpg', dpi=300)
+plt.show()
+
+
+#########
+#Plotting disp and covars for combined sites
+#########
+
+fig, axes = plt.subplots(1,3, figsize=(10, 5), sharey=True)
+axes = axes.flatten()
+for ax, col in zip(axes, cols):
+    x = df_sites[col]
+    y = df_sites.mean_disp_rate
+    linstats_carb = linregress(x,y)
+    yline_disp = linstats_carb.slope * x + linstats_carb.intercept
+    ax.plot(x,y, 'ok')
+    print(f"{col} | p={linstats_carb.pvalue:.3g}")
+    if linstats_carb.pvalue < 0.05:
+        ax.plot(x, yline_disp, '-k', lw=2)
+    else:
+        ax.plot(x, yline_disp, 'x-r', lw=2, ms=10)
+
+    ax.set_xlabel(col)
+
+for ax in axes[[0]]:
+    ax.set_ylabel('Horizontal displacement (m yr${-1}$)')
+
+plt.tight_layout()
+plt.savefig('/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/figs/DisplacementCovariates_BothSites.jpg', dpi=300)
 plt.show()
