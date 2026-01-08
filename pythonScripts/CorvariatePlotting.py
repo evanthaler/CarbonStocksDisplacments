@@ -42,20 +42,25 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     
     plt.figure()
     plt.plot(df.mean_disp_rate,df.Total_C_stock_kg_m2_0to50cm,'ok')
+    plt.plot(df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate'],
+    df_sites.loc[df_sites['Site'] == 'TL47','Total_C_stock_kg_m2_0to50cm'],'ok',label='TL47')
+    plt.plot(df_sites.loc[df_sites['Site'] == 'TL27','mean_disp_rate'],
+    df_sites.loc[df_sites['Site'] == 'TL27','Total_C_stock_kg_m2_0to50cm'],'ob',label='TL27')
+
     plt.plot(x_fit, y_fit, color='k', lw=2)
     plt.axvspan(
         x0 - x0_ci, x0 + x0_ci,
-        color="gray", alpha=0.2,
-        label="95% CI (peak)"
+        color="gray", alpha=0.2
     )
     plt.ylabel('Soil organic carbon stock (kg m$^{-2}$)')
     plt.xlabel('Horizontal displacement rate (m yr$^{-1}$)')
     plt.tight_layout()
-    plt.savefig(outfig)
+    plt.legend()
+    plt.savefig(outfig,dpi=300)
     plt.show()
 
 
-fitDispAllData(df_sites,'/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/figs/SOCStock_DisplacementCombinedSites.jpg')
+fitDispAllData(df_sites,f'{figoutdir}/SOCStock_DisplacementCombinedSites.jpg')
 
 ###################################################################
 def normalizeDisplacement(df,site,dispcol = 'mean_disp_rate',sitecol='Site'):
