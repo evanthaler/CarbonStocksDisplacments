@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 plt.rcParams.update({'font.size': 14})
 df_sites = pd.read_csv('/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement_covariates.csv')
-
+figoutdir = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs'
 #################################
 #Displacement fit all data ######
 #################################
@@ -56,6 +56,7 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
 
 
 fitDispAllData(df_sites,'/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/figs/SOCStock_DisplacementCombinedSites.jpg')
+
 ###################################################################
 def normalizeDisplacement(df,site,dispcol = 'mean_disp_rate',sitecol='Site'):
     df_site = df[df[sitecol]==site]
@@ -99,21 +100,21 @@ for ax, col in zip(axes, cols):
     ax.plot(tl47_df[col],tl47_df.mean_disp_rate,  'ok', label='TL47')
     ax.plot(tl27_df[col],tl27_df.mean_disp_rate,  'ob', label='TL27')
     if linstats_47.pvalue < 0.05:
-        ax.plot(tl47_df[col], yline_47, '-k', lw=2)
+        ax.plot(tl47_df[col], yline_47, '-k', lw=3)
     else:
-        ax.plot(tl47_df[col], yline_47, 'x-r', lw=2, ms=10)
+        ax.plot(tl47_df[col], yline_47, '-',color='gray', lw=1, ms=10)
     if linstats_27.pvalue < 0.05:
-        ax.plot(tl27_df[col], yline_27, '-b', lw=2)
+        ax.plot(tl27_df[col], yline_27, '-b', lw=3)
     else:
-        ax.plot(tl27_df[col], yline_27, 'x-r', lw=2, ms=10)
+        ax.plot(tl27_df[col], yline_27, '-',color='gray', lw=1, ms=10)
     ax.set_xlabel(col)
     print(f"{col} | TL47 p={linstats_47.pvalue:.3g}, TL27 p={linstats_27.pvalue:.3g}")
 for ax in axes[[0]]:
     ax.set_ylabel('Horizontal displacement (m yr$^{-1}$)')
 
-axes[1].legend(loc='upper left')
+axes[0].legend(loc='best')
 plt.tight_layout()
-plt.savefig('/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/figs/DisplacementCovariates.jpg', dpi=300)
+plt.savefig(f'{figoutdir}/DisplacementCovariates.jpg', dpi=300)
 plt.show()
 
 #########
@@ -129,21 +130,21 @@ for ax, col in zip(axes, cols):
     ax.plot(tl47_df[col],tl47_df.Total_C_stock_kg_m2_0to50cm , 'ok', label='TL47')
     ax.plot(tl27_df[col],tl27_df.Total_C_stock_kg_m2_0to50cm, 'ob', label='TL27')
     if linstats_47.pvalue < 0.05:
-        ax.plot(tl47_df[col], yline_47, '-k', lw=2)
+        ax.plot(tl47_df[col], yline_47, '-k', lw=3)
     else:
-        ax.plot(tl47_df[col], yline_47, 'x-r', lw=2, ms=10)
+        ax.plot(tl47_df[col], yline_47, '-',color='gray', lw=1, ms=10)
     if linstats_27.pvalue < 0.05:
-        ax.plot(tl27_df[col], yline_27, '-b', lw=2)
+        ax.plot(tl27_df[col], yline_27, '-b', lw=3)
     else:
-        ax.plot(tl27_df[col], yline_27, 'x-r', lw=2, ms=10)
+        ax.plot(tl27_df[col], yline_27, '-',color='gray', lw=1, ms=10)
     ax.set_xlabel(col)
     print(f"{col} | TL47 p={linstats_47.pvalue:.3g}, TL27 p={linstats_27.pvalue:.3g}")
 for ax in axes[[0]]:
     ax.set_ylabel('Soil organic carbon stocks (kg m$^{-2}$)')
 
-axes[1].legend(loc='upper right')
+axes[0].legend(loc='best')
 plt.tight_layout()
-plt.savefig('/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/figs/CstocksCovariates.jpg', dpi=300)
+plt.savefig(f'{figoutdir}/CstocksCovariates.jpg', dpi=300)
 plt.show()
 
 
@@ -161,9 +162,9 @@ for ax, col in zip(axes, cols):
     ax.plot(x,y, 'ok')
     print(f"{col} | p={linstats_carb.pvalue:.3g}")
     if linstats_carb.pvalue < 0.05:
-        ax.plot(x, yline_disp, '-k', lw=2)
+        ax.plot(x, yline_disp, '-k', lw=3)
     else:
-        ax.plot(x, yline_disp, 'x-r', lw=2, ms=10)
+        ax.plot(x, yline_disp, '-',color='gray', lw=1, ms=10)
 
     ax.set_xlabel(col)
 
@@ -171,7 +172,7 @@ for ax in axes[[0]]:
     ax.set_ylabel('Soil organic carbon stocks (kg m$^{-2}$)')
 
 plt.tight_layout()
-plt.savefig('/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/figs/CstocksCovariates_BothSites.jpg', dpi=300)
+plt.savefig(f'{figoutdir}/CstocksCovariates_BothSites.jpg', dpi=300)
 plt.show()
 
 
@@ -189,9 +190,9 @@ for ax, col in zip(axes, cols):
     ax.plot(x,y, 'ok')
     print(f"{col} | p={linstats_carb.pvalue:.3g}")
     if linstats_carb.pvalue < 0.05:
-        ax.plot(x, yline_disp, '-k', lw=2)
+        ax.plot(x, yline_disp, '-k', lw=3)
     else:
-        ax.plot(x, yline_disp, 'x-r', lw=2, ms=10)
+        ax.plot(x, yline_disp, '-',color='gray', lw=1, ms=10)
 
     ax.set_xlabel(col)
 
@@ -199,5 +200,5 @@ for ax in axes[[0]]:
     ax.set_ylabel('Horizontal displacement (m yr${-1}$)')
 
 plt.tight_layout()
-plt.savefig('/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/figs/DisplacementCovariates_BothSites.jpg', dpi=300)
+plt.savefig(f'{figoutdir}/DisplacementCovariates_BothSites.jpg', dpi=300)
 plt.show()
