@@ -60,7 +60,7 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     plt.show()
 
 
-fitDispAllData(df_sites,f'{figoutdir}/SOCStock_DisplacementCombinedSites.jpg')
+#fitDispAllData(df_sites,f'{figoutdir}/SOCStock_DisplacementCombinedSites.jpg')
 
 ###################################################################
 def normalizeDisplacement(df,site,dispcol = 'mean_disp_rate',sitecol='Site'):
@@ -205,5 +205,5 @@ for ax in axes[[0]]:
     ax.set_ylabel('Horizontal displacement (m yr${-1}$)')
 
 plt.tight_layout()
-plt.savefig(f'{figoutdir}/DisplacementCovariates_BothSites.jpg', dpi=300)
+#plt.savefig(f'{figoutdir}/DisplacementCovariates_BothSites.jpg', dpi=300)
 plt.show()
