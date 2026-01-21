@@ -18,7 +18,7 @@ def load_tiff(inputfile):
     tif=None
     return dat, gt
 
-def plotstudymap(dempath,statepath,state,soilpath,pfraster = None,outpath=None,dispath=None,xlim_min=None,xlim_max=None,inset=True): 
+def plotstudymap(dempath,statepath,state,soilpath,plotpoints=True,pfraster = None,outpath=None,dispath=None,xlim_min=None,xlim_max=None,inset=True): 
     
     us_shapefile = gpd.read_file(statepath)
     state_shp = us_shapefile[us_shapefile.STUSPS==state].to_crs('epsg:32603')
@@ -27,7 +27,8 @@ def plotstudymap(dempath,statepath,state,soilpath,pfraster = None,outpath=None,d
     
 
     fig, ax = plt.subplots(figsize=(6, 6))
-    soilpoints.plot(ax=ax, color='blue', edgecolor='black', markersize=30, zorder=0,label='Soil carbon stocks\nand displacement\nmeasurements ')
+    if plotpoints:
+        soilpoints.plot(ax=ax, color='blue', edgecolor='black', markersize=30, zorder=0,label='Soil carbon stocks\nand displacement\nmeasurements ')
     if dispath is not None:
         dispoints = gpd.read_file(dispath).to_crs(state_shp.crs)
         dispoints.plot(ax=ax,color='red',edgecolor='darkred',markersize=12,zorder=1,label='Displacement measurement')
@@ -43,7 +44,7 @@ def plotstudymap(dempath,statepath,state,soilpath,pfraster = None,outpath=None,d
             markersize=100,
             zorder=5
         )
-    ax.legend(loc='best')
+    #ax.legend(loc='best')
     # ax_inset.set_xticks([]); ax_inset.set_yticks([]) #ax_inset.set_title("Oregon", fontsize=8)
 
     # --- Style main map ---
@@ -71,11 +72,13 @@ def plotstudymap(dempath,statepath,state,soilpath,pfraster = None,outpath=None,d
 
 
 plotstudymap(
-dempath = "/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/TL27/hs.tif",
+dempath = "/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/TL47/hs.tif",
 statepath='/Users/evanthaler/Documents/Projects/OSU/StateShapefiles/tl_2023_us_state/tl_2023_us_state.shp',
 state='AK',
 soilpath = '/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement_covariates.gpkg',
-pfraster = "/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/TL27/pf.tif",
-outpath = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs/TL27AllStocksWDispMap.jpg',
-#xlim_min = 442000,xlim_max=443500,
+plotpoints = False,
+pfraster = "/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/TL47/pf.tif",
+
+outpath = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs/TL47pMap.jpg',
+xlim_min = 442000,xlim_max=443500,
 inset=False)
