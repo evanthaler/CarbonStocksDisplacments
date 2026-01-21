@@ -41,7 +41,7 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     y_fit = linear_exp(x_fit, *popt)
     
     plt.figure()
-    plt.plot(df.mean_disp_rate,df.Total_C_stock_kg_m2_0to50cm,'ok')
+    plt.plot(df.mean_disp_rate,df[ycol],'ok')
     plt.plot(df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate'],
     df_sites.loc[df_sites['Site'] == 'TL47',ycol],'ok',label='TL47')
     plt.plot(df_sites.loc[df_sites['Site'] == 'TL27','mean_disp_rate'],
@@ -207,3 +207,7 @@ for ax in axes[[0]]:
 plt.tight_layout()
 #plt.savefig(f'{figoutdir}/DisplacementCovariates_BothSites.jpg', dpi=300)
 plt.show()
+
+
+
+plt.figure()
