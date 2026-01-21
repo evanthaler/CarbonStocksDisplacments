@@ -61,7 +61,7 @@ def plotstudymap(dempath,statepath,state,soilpath,pfraster = None,outpath=None,d
             img,img_gt = load_tiff(pfraster)
             img_mask= np.where(img == 1, img, np.nan)
             extent = (img_gt[0], img_gt[0] + img.shape[1] * img_gt[1], img_gt[3] + img.shape[0] * img_gt[5], img_gt[3])
-            plt.imshow(img_mask,cmap=plt.cm.Greens_r,alpha=1,extent=extent,interpolation='none',zorder=-1)
+            plt.imshow(img_mask,cmap=plt.cm.Greens_r,alpha=0.5,extent=extent,interpolation='none',zorder=-1)
     plt.tight_layout()
     if outpath is not None:
         plt.savefig(outpath,dpi=300)
@@ -71,11 +71,11 @@ def plotstudymap(dempath,statepath,state,soilpath,pfraster = None,outpath=None,d
 
 
 plotstudymap(
-dempath = "/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/TL47/hs.tif",
+dempath = "/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/TL27/hs.tif",
 statepath='/Users/evanthaler/Documents/Projects/OSU/StateShapefiles/tl_2023_us_state/tl_2023_us_state.shp',
 state='AK',
 soilpath = '/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement_covariates.gpkg',
-pfraster = "/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/TL47/pf.tif",
-outpath = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs/TL47AllStocksWDispMap.jpg',
-xlim_min = 442000,xlim_max=443500,
+pfraster = "/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/TL27/pf.tif",
+outpath = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs/TL27AllStocksWDispMap.jpg',
+#xlim_min = 442000,xlim_max=443500,
 inset=False)

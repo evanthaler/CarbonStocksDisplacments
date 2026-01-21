@@ -4,7 +4,7 @@ from scipy.optimize import curve_fit
 import pandas as pd
 import numpy as np
 plt.rcParams.update({'font.size': 14})
-df_sites = pd.read_csv('/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement_covariates.csv')
+df_sites = pd.read_csv('/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement.csv')
 figoutdir = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs'
 #################################
 #Displacement fit all data ######
@@ -15,7 +15,7 @@ def linear_exp(x, x0, y0, m, k):
         m * (x - x0) + y0,
         y0 * np.exp(-k * (x - x0))
     )
-def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to50cm'):
+def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to50cm',ycollabel='Soil organic carbon stock (kg m$^{-2}$)',plotline=True):
     x = df[xcol]
     y = df[ycol]
     x0_init = x[np.argmax(y)]# pick the y peak location for x
@@ -43,16 +43,16 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     plt.figure()
     plt.plot(df.mean_disp_rate,df.Total_C_stock_kg_m2_0to50cm,'ok')
     plt.plot(df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate'],
-    df_sites.loc[df_sites['Site'] == 'TL47','Total_C_stock_kg_m2_0to50cm'],'ok',label='TL47')
+    df_sites.loc[df_sites['Site'] == 'TL47',ycol],'ok',label='TL47')
     plt.plot(df_sites.loc[df_sites['Site'] == 'TL27','mean_disp_rate'],
-    df_sites.loc[df_sites['Site'] == 'TL27','Total_C_stock_kg_m2_0to50cm'],'ob',label='TL27')
-
-    plt.plot(x_fit, y_fit, color='k', lw=2)
-    plt.axvspan(
-        x0 - x0_ci, x0 + x0_ci,
-        color="gray", alpha=0.2
-    )
-    plt.ylabel('Soil organic carbon stock (kg m$^{-2}$)')
+    df_sites.loc[df_sites['Site'] == 'TL27',ycol],'ob',label='TL27')
+    if plotline:
+        plt.plot(x_fit, y_fit, color='k', lw=2)
+        plt.axvspan(
+            x0 - x0_ci, x0 + x0_ci,
+            color="gray", alpha=0.2
+        )
+    plt.ylabel(ycollabel)
     plt.xlabel('Horizontal displacement rate (m yr$^{-1}$)')
     plt.tight_layout()
     plt.legend()
@@ -60,7 +60,7 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     plt.show()
 
 
-#fitDispAllData(df_sites,f'{figoutdir}/SOCStock_DisplacementCombinedSites.jpg')
+fitDispAllData(df_sites,f'{figoutdir}/SOC_0-20cm_DisplacementCombinedSites.jpg',ycol='soc_0_20',ycollabel='% SOC 0-20 cm',plotline=False)
 
 ###################################################################
 def normalizeDisplacement(df,site,dispcol = 'mean_disp_rate',sitecol='Site'):
