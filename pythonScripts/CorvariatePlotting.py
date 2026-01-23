@@ -43,32 +43,32 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     plt.figure()
     #plt.plot(df.mean_disp_rate,df[ycol],'ok')
 
-    plt.plot(
-    df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 1), 'mean_disp_rate'],
-    df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 1), ycol],
-    '*k')
-    plt.plot(
-    df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 0), 'mean_disp_rate'],
-    df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 0), ycol],
-    'ok',
-    label='TL47')
+    # plt.plot(
+    # df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 1), 'mean_disp_rate'],
+    # df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 1), ycol],
+    # '*k')
+    # plt.plot(
+    # df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 0), 'mean_disp_rate'],
+    # df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 0), ycol],
+    # 'ok',
+    # label='TL47')
 
-    plt.plot(
-    df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 1), 'mean_disp_rate'],
-    df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 1), ycol],
-    '*b')
-    plt.plot(
-    df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 0), 'mean_disp_rate'],
-    df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 0), ycol],
-    'ob',
-    label='TL27')
+    # plt.plot(
+    # df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 1), 'mean_disp_rate'],
+    # df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 1), ycol],
+    # '*b')
+    # plt.plot(
+    # df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 0), 'mean_disp_rate'],
+    # df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 0), ycol],
+    # 'ob',
+    # label='TL27')
 
 
-    # plt.plot(df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate'],
-    # df_sites.loc[df_sites['Site'] == 'TL47',ycol],'ok',label='TL47')
+    plt.plot(df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate'],
+    df_sites.loc[df_sites['Site'] == 'TL47',ycol],'ok',label='Teller 47')
 
-    # plt.plot(df_sites.loc[df_sites['Site'] == 'TL27','mean_disp_rate'],
-    # df_sites.loc[df_sites['Site'] == 'TL27',ycol],'ob',label='TL27')
+    plt.plot(df_sites.loc[df_sites['Site'] == 'TL27','mean_disp_rate'],
+    df_sites.loc[df_sites['Site'] == 'TL27',ycol],'ob',label='Teller 27')
 
 
 
@@ -86,7 +86,7 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     plt.show()
 
 
-fitDispAllData(df_sites,f'{figoutdir}/SOCStockDisplacementCombinedSites_PFNonPF.jpg')
+fitDispAllData(df_sites,f'{figoutdir}/SOCStockDisplacementCombinedSites.jpg')
 
 ###################################################################
 def normalizeDisplacement(df,site,dispcol = 'mean_disp_rate',sitecol='Site'):
@@ -236,4 +236,47 @@ plt.show()
 
 
 
-plt.figure()
+
+
+
+ycol='Total_C_stock_kg_m2_0to50cm'
+ycollabel='Soil organic carbon stock (kg m$^{-2}$)'
+linreg_47 = linregress(df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate'],
+df_sites.loc[df_sites['Site'] == 'TL47',ycol])
+fig,ax = plt.subplots(figsize=(5,5))
+ax.plot(
+    df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate'],
+    df_sites.loc[df_sites['Site'] == 'TL47',ycol],'ok',label='Teller 47')
+
+ax.plot(
+    df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate'],
+    linreg_47.slope*df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate']+linreg_47.intercept,'-k'
+
+)
+ax.text(0.02,13,f'r$^{2}$={linreg_47.rvalue**2:.2f}')
+ax.set_xlabel('Horizontal displacement rate (m yr$^{-1}$)')
+ax.set_ylabel(ycollabel)
+plt.tight_layout()
+plt.savefig(f'{figoutdir}/TL47StocksDisp.jpg',dpi=300)
+plt.show()
+
+
+linreg_27 = linregress(df_sites.loc[df_sites['Site'] == 'TL27','mean_disp_rate'],
+df_sites.loc[df_sites['Site'] == 'TL27',ycol])
+
+fig,ax = plt.subplots(figsize=(5,5))
+ax.plot(
+    df_sites.loc[df_sites['Site'] == 'TL27','mean_disp_rate'],
+    df_sites.loc[df_sites['Site'] == 'TL27',ycol],'ob',label='Teller 27')
+
+ax.plot(
+    df_sites.loc[df_sites['Site'] == 'TL27','mean_disp_rate'],
+    linreg_27.slope*df_sites.loc[df_sites['Site'] == 'TL27','mean_disp_rate']+linreg_27.intercept,'-b'
+
+)
+ax.set_xlabel('Horizontal displacement rate (m yr$^{-1}$)')
+ax.set_ylabel(ycollabel)
+ax.text(0.016,25,f'r$^{2}$={linreg_27.rvalue**2:.2f}')
+plt.tight_layout()
+plt.savefig(f'{figoutdir}/TL27StocksDisp.jpg',dpi=300)
+plt.show()
