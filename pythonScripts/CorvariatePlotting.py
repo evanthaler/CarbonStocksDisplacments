@@ -41,11 +41,37 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     y_fit = linear_exp(x_fit, *popt)
     
     plt.figure()
-    plt.plot(df.mean_disp_rate,df[ycol],'ok')
-    plt.plot(df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate'],
-    df_sites.loc[df_sites['Site'] == 'TL47',ycol],'ok',label='TL47')
-    plt.plot(df_sites.loc[df_sites['Site'] == 'TL27','mean_disp_rate'],
-    df_sites.loc[df_sites['Site'] == 'TL27',ycol],'ob',label='TL27')
+    #plt.plot(df.mean_disp_rate,df[ycol],'ok')
+
+    plt.plot(
+    df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 1), 'mean_disp_rate'],
+    df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 1), ycol],
+    '*k')
+    plt.plot(
+    df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 0), 'mean_disp_rate'],
+    df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 0), ycol],
+    'ok',
+    label='TL47')
+
+    plt.plot(
+    df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 1), 'mean_disp_rate'],
+    df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 1), ycol],
+    '*b')
+    plt.plot(
+    df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 0), 'mean_disp_rate'],
+    df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 0), ycol],
+    'ob',
+    label='TL27')
+
+
+    # plt.plot(df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate'],
+    # df_sites.loc[df_sites['Site'] == 'TL47',ycol],'ok',label='TL47')
+
+    # plt.plot(df_sites.loc[df_sites['Site'] == 'TL27','mean_disp_rate'],
+    # df_sites.loc[df_sites['Site'] == 'TL27',ycol],'ob',label='TL27')
+
+
+
     if plotline:
         plt.plot(x_fit, y_fit, color='k', lw=2)
         plt.axvspan(
@@ -60,7 +86,7 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     plt.show()
 
 
-fitDispAllData(df_sites,f'{figoutdir}/SOC_0-20cm_DisplacementCombinedSites.jpg',ycol='soc_0_20',ycollabel='% SOC 0-20 cm',plotline=False)
+fitDispAllData(df_sites,f'{figoutdir}/SOCStockDisplacementCombinedSites_PFNonPF.jpg')
 
 ###################################################################
 def normalizeDisplacement(df,site,dispcol = 'mean_disp_rate',sitecol='Site'):
