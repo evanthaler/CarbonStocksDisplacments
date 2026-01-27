@@ -55,7 +55,7 @@ def plotstudymap(dempath,statepath,state,soilpath,plotpoints=True,pfraster = Non
     ax.tick_params(axis='both', labelrotation=45)
     if xlim_min is not None:
         ax.set_xlim(xlim_min,xlim_max)
-    #ax.legend(fontsize=8, loc='lower right')
+    ax.legend(fontsize=8, loc='upper left')
     with rasterio.open(dempath) as ds:
         show(ds, ax=ax, cmap="gray", alpha=1.0, zorder=-1)
     if pfraster is not None:
@@ -76,9 +76,13 @@ dempath = "/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rast
 statepath='/Users/evanthaler/Documents/Projects/OSU/StateShapefiles/tl_2023_us_state/tl_2023_us_state.shp',
 state='AK',
 soilpath = '/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement_covariates.gpkg',
+dispath='/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/disp2use/TL27TL47Displacments_PFTopo.gpkg',
 plotpoints = False,
-#pfraster = "/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/TL47/pf.tif",
+pfraster = "/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/TL27/pf.tif",
 
-outpath = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs/TL27Map.jpg',
+outpath = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs/TL27DisplacementsMap_wPF.jpg',
 #xlim_min = 442000,xlim_max=443500,
 inset=False)
+
+
+#plotstudymap(dempath,statepath,state,soilpath,plotpoints=True,pfraster = None,outpath=None,dispath=None,xlim_min=None,xlim_max=None,inset=True)

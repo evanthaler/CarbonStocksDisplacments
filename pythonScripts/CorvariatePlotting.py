@@ -86,7 +86,7 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     plt.show()
 
 
-fitDispAllData(df_sites,f'{figoutdir}/SOCStockDisplacementCombinedSites.jpg')
+fitDispAllData(df_sites,f'{figoutdir}/SOCStockDisplacementCombinedSites_nocurvefit.jpg',plotline=False)
 
 ###################################################################
 def normalizeDisplacement(df,site,dispcol = 'mean_disp_rate',sitecol='Site'):

@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.stats import gaussian_kde
+from scipy.stats import kruskal,ttest_ind
 
 
 disp_df = pd.read_csv('/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/disp2use/TL27TL47Displacments_PFTopo.csv')
@@ -17,6 +17,7 @@ tl27_nonpfslope = disp_df.loc[(disp_df['Site'] == 'TL27') & (disp_df['pf'] == "0
 tl47_pfslope = disp_df.loc[(disp_df['Site'] == 'TL47') & (disp_df['pf'] == "1"),'slope'].dropna()
 tl47_nonpfslope = disp_df.loc[(disp_df['Site'] == 'TL47') & (disp_df['pf'] == "0"),'slope'].dropna()
 
+ttest_ind(tl47_pfdisp,tl47_nonpfdisp)
 
 
 colors = ['blue','lightblue','black','darkgray']
@@ -29,7 +30,10 @@ bplot = ax.boxplot(
 for patch, color in zip(bplot['boxes'], colors):
     patch.set_facecolor(color)
 ax.tick_params(axis='x', labelrotation=45)
+ax.set_ylim(0)
 ax.set_ylabel('Slope (degrees)')
+fig.tight_layout()
+fig.savefig('/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs/SlopeBoxplots.jpg',dpi=300)
 fig.show()
 
 colors = ['blue','lightblue','black','darkgray']
@@ -43,6 +47,9 @@ for patch, color in zip(bplot['boxes'], colors):
     patch.set_facecolor(color)
 ax.tick_params(axis='x', labelrotation=45)
 ax.set_ylabel('Horizontal displacement (m yr$^{-1}$)')
+ax.set_ylim(0)
+fig.tight_layout()
+fig.savefig('/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs/DispBoxplots.jpg',dpi=300)
 fig.show()
 
 

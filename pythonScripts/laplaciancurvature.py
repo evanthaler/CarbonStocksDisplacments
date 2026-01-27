@@ -63,9 +63,9 @@ def process_gaussian_curvature(
 
 
 if __name__ == "__main__":
-    dem_path = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/Rasters/TL27/elev.tif'
+    dem_path = '/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/combinedSiteRasters/elev.tif'
     output_prefix = "dem_curv"
-    outpath = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/Rasters/TL27'
+    outpath = '/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/combinedSiteRasters/'
     sigmas_m = [9, 15, 30, 60, 120]
 
     process_gaussian_curvature(dem_path, output_prefix, outpath,sigmas_m)
