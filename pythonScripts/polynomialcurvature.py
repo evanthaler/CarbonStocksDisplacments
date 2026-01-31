@@ -140,13 +140,11 @@ def process_polynomial_curvature(
 # -----------------------------------------------------------
 if __name__ == "__main__":
     dem_path = (
-        "/Users/evanthaler/Documents/GitHub/"
-        "CarbonStocksDisplacments/Rasters/TL27/elev.tif"
+'/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/combinedSiteRasters/elev.tif'
     )
 
     outpath = (
-        "/Users/evanthaler/Documents/GitHub/"
-        "CarbonStocksDisplacments/Rasters/TL27"
+'/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/combinedSiteRasters/'
     )
 
     output_prefix = "dem_curv"

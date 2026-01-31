@@ -15,6 +15,11 @@ def linear_exp(x, x0, y0, m, k):
         m * (x - x0) + y0,
         y0 * np.exp(-k * (x - x0))
     )
+
+def soil_prod_hump(x, a, b):
+    return a * x * np.exp(-b * x)
+
+
 def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to50cm',ycollabel='Soil organic carbon stock (kg m$^{-2}$)',plotline=True):
     x = df[xcol]
     y = df[ycol]

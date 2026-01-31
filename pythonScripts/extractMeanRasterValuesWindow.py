@@ -172,8 +172,8 @@ def getValuesinWindow(pFile,wd,outFile,outGPKG,XVALUE,YVALUE,sitename='SampleLoc
 
 getValuesinWindow(pFile='/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/disp2use/TL27TL47Displacments.csv',
                 wd='/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/combinedSiteRasters',
-                outFile='/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/disp2use/TL27TL47Displacments_PFTopo.csv',
-                outGPKG='/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/disp2use/TL27TL47Displacments_PFTopo.gpkg',
+                outFile='/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/disp2use/TL27TL47Displacments_covariates.csv',
+                outGPKG='/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/disp2use/TL27TL47Displacments_covariates.gpkg',
                 XVALUE='X',
                 YVALUE='Y')
 

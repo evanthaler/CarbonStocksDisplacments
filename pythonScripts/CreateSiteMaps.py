@@ -72,16 +72,16 @@ def plotstudymap(dempath,statepath,state,soilpath,plotpoints=True,pfraster = Non
 
 
 plotstudymap(
-dempath = "/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/TL27/hs.tif",
+dempath = "/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/TL47/hs.tif",
 statepath='/Users/evanthaler/Documents/Projects/OSU/StateShapefiles/tl_2023_us_state/tl_2023_us_state.shp',
 state='AK',
 soilpath = '/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement_covariates.gpkg',
-dispath='/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/disp2use/TL27TL47Displacments_PFTopo.gpkg',
-plotpoints = False,
-pfraster = "/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/TL27/pf.tif",
+dispath=None,
+plotpoints = True,
+pfraster = None,
 
-outpath = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs/TL27DisplacementsMap_wPF.jpg',
-#xlim_min = 442000,xlim_max=443500,
+outpath = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs/TL47DisplacementsCarbonMap_noPF.jpg',
+xlim_min = 442000,xlim_max=443500,
 inset=False)
 
 
