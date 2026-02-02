@@ -9,6 +9,8 @@ figoutdir = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs'
 #################################
 #Displacement fit all data ######
 #################################
+def lognormal_hump(x, a, mu, sigma):
+    return a * np.exp(-(np.log(x) - mu)**2 / (2 * sigma**2))
 def linear_exp(x, x0, y0, m, k):
     return np.where(
         x <= x0,
@@ -42,56 +44,45 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     x0_ci = 1.96 * x0_se   
 
     
-    x_fit = np.linspace(x.min(), x.max(), 400)
-    y_fit = linear_exp(x_fit, *popt)
+    mask = x > 0  # log requires positive x
+
+    p0 = [np.max(y), np.log(np.median(x)), 0.5]
+
+    params, cov = curve_fit(
+        lognormal_hump, x[mask], y[mask], p0=p0
+    )
+
+    xfit = np.linspace(x[mask].min(), x.max(), 200)
+    yfit = lognormal_hump(xfit, *params)
+    # x_fit = np.linspace(x.min(), x.max(), 400)
+    # y_fit = linear_exp(x_fit, *popt)
     
-    plt.figure()
-    #plt.plot(df.mean_disp_rate,df[ycol],'ok')
+    fig,ax = plt.subplots(figsize=(5,5))
+  
 
-    # plt.plot(
-    # df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 1), 'mean_disp_rate'],
-    # df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 1), ycol],
-    # '*k')
-    # plt.plot(
-    # df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 0), 'mean_disp_rate'],
-    # df_sites.loc[(df_sites['Site'] == 'TL47') & (df_sites['PF'] == 0), ycol],
-    # 'ok',
-    # label='TL47')
-
-    # plt.plot(
-    # df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 1), 'mean_disp_rate'],
-    # df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 1), ycol],
-    # '*b')
-    # plt.plot(
-    # df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 0), 'mean_disp_rate'],
-    # df_sites.loc[(df_sites['Site'] == 'TL27') & (df_sites['PF'] == 0), ycol],
-    # 'ob',
-    # label='TL27')
-
-
-    plt.plot(df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate'],
+    ax.plot(df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate'],
     df_sites.loc[df_sites['Site'] == 'TL47',ycol],'ok',label='Teller 47')
 
-    plt.plot(df_sites.loc[df_sites['Site'] == 'TL27','mean_disp_rate'],
+    ax.plot(df_sites.loc[df_sites['Site'] == 'TL27','mean_disp_rate'],
     df_sites.loc[df_sites['Site'] == 'TL27',ycol],'ob',label='Teller 27')
 
 
 
     if plotline:
-        plt.plot(x_fit, y_fit, color='k', lw=2)
-        plt.axvspan(
-            x0 - x0_ci, x0 + x0_ci,
-            color="gray", alpha=0.2
-        )
-    plt.ylabel(ycollabel)
-    plt.xlabel('Horizontal displacement rate (m yr$^{-1}$)')
+        ax.plot(xfit, yfit, color='k', lw=2)
+        # ax.axvspan(
+        #     x0 - x0_ci, x0 + x0_ci,
+        #     color="gray", alpha=0.2
+        # )
+    ax.set_ylabel(ycollabel)
+    ax.set_xlabel('Horizontal displacement rate (m yr$^{-1}$)')
     plt.tight_layout()
-    plt.legend()
+    ax.legend()
     plt.savefig(outfig,dpi=300)
     plt.show()
 
 
-fitDispAllData(df_sites,f'{figoutdir}/SOCStockDisplacementCombinedSites_nocurvefit.jpg',plotline=False)
+fitDispAllData(df_sites,f'{figoutdir}/SOCStockDisplacementCombinedSites_soilhump.jpg',plotline=True)
 
 ###################################################################
 def normalizeDisplacement(df,site,dispcol = 'mean_disp_rate',sitecol='Site'):

@@ -80,7 +80,7 @@ dispath=None,
 plotpoints = True,
 pfraster = None,
 
-outpath = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs/TL47DisplacementsCarbonMap_noPF.jpg',
+outpath = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs/TL47DisplacementArrows.jpg',
 xlim_min = 442000,xlim_max=443500,
 inset=False)
 
