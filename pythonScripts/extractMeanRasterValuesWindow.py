@@ -170,10 +170,10 @@ def getValuesinWindow(pFile,wd,outFile,outGPKG,XVALUE,YVALUE,sitename='SampleLoc
     merged.to_csv(outFile)
     merge_gdf.to_file(outGPKG)
 
-getValuesinWindow(pFile='/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/disp2use/TL27TL47Displacments.csv',
+getValuesinWindow(pFile='/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement.csv',
                 wd='/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/combinedSiteRasters',
-                outFile='/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/disp2use/TL27TL47Displacments_covariates.csv',
-                outGPKG='/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/disp2use/TL27TL47Displacments_covariates.gpkg',
+                outFile='//Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement_wcorvars.csv',
+                outGPKG='/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement_wcovars.gpkg',
                 XVALUE='X',
                 YVALUE='Y')
 

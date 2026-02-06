@@ -27,37 +27,44 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     y = df[ycol]
     x0_init = x[np.argmax(y)]# pick the y peak location for x
     y0_init = y.max()
+    fig,ax = plt.subplots(figsize=(6,5))
+    if plotline:
+        
+    # ax.axvspan(
+    #     x0 - x0_ci, x0 + x0_ci,
+    #     color="gray", alpha=0.2
+    # )
+        # p0 = [
+        #     x0_init,      # x0 (peak location)
+        #     y0_init,      # y0 (peak value)
+        #     200,          # m (slope; adjust if needed)
+        #     50            # k (decay rate; adjust if needed)
+        # ]
 
-    p0 = [
-        x0_init,      # x0 (peak location)
-        y0_init,      # y0 (peak value)
-        200,          # m (slope; adjust if needed)
-        50            # k (decay rate; adjust if needed)
-    ]
+        # popt, pcov = curve_fit(
+        #     linear_exp, x, y, p0=p0, maxfev=10000
+        # )
+        # x0, y0, m, k = popt
+        # #Get peak standard error
+        # x0_se = np.sqrt(pcov[0, 0])          # standard error
+        # x0_ci = 1.96 * x0_se   
 
-    popt, pcov = curve_fit(
-        linear_exp, x, y, p0=p0, maxfev=10000
-    )
-    x0, y0, m, k = popt
-    #Get peak standard error
-    x0_se = np.sqrt(pcov[0, 0])          # standard error
-    x0_ci = 1.96 * x0_se   
+        
+        mask = x > 0  # log requires positive x
 
-    
-    mask = x > 0  # log requires positive x
+        p0 = [np.max(y), np.log(np.median(x)), 0.5]
 
-    p0 = [np.max(y), np.log(np.median(x)), 0.5]
+        params, cov = curve_fit(
+            lognormal_hump, x[mask], y[mask], p0=p0
+        )
 
-    params, cov = curve_fit(
-        lognormal_hump, x[mask], y[mask], p0=p0
-    )
-
-    xfit = np.linspace(x[mask].min(), x.max(), 200)
-    yfit = lognormal_hump(xfit, *params)
+        xfit = np.linspace(x[mask].min(), x.max(), 200)
+        yfit = lognormal_hump(xfit, *params)
+        ax.plot(xfit, yfit, color='k', lw=2)
     # x_fit = np.linspace(x.min(), x.max(), 400)
     # y_fit = linear_exp(x_fit, *popt)
     
-    fig,ax = plt.subplots(figsize=(5,5))
+    
   
 
     ax.plot(df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate'],
@@ -68,12 +75,7 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
 
 
 
-    if plotline:
-        ax.plot(xfit, yfit, color='k', lw=2)
-        # ax.axvspan(
-        #     x0 - x0_ci, x0 + x0_ci,
-        #     color="gray", alpha=0.2
-        # )
+
     ax.set_ylabel(ycollabel)
     ax.set_xlabel('Horizontal displacement rate (m yr$^{-1}$)')
     plt.tight_layout()
@@ -82,7 +84,7 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     plt.show()
 
 
-fitDispAllData(df_sites,f'{figoutdir}/SOCStockDisplacementCombinedSites_soilhump.jpg',plotline=True)
+fitDispAllData(df_sites,f'{figoutdir}/CNRatioDisplacementCombinedSites.jpg',ycol='C_N_ratio',plotline=False)
 
 ###################################################################
 def normalizeDisplacement(df,site,dispcol = 'mean_disp_rate',sitecol='Site'):
