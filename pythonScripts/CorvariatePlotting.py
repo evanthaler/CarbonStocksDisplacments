@@ -23,7 +23,7 @@ def soil_prod_hump(x, a, b):
 
 
 def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to50cm',ycollabel='Soil organic carbon stock (kg m$^{-2}$)',plotline=True):
-    x = df[xcol]
+    x = df[xcol]*0.5
     y = df[ycol]
     x0_init = x[np.argmax(y)]# pick the y peak location for x
     y0_init = y.max()
@@ -67,24 +67,24 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     
   
 
-    ax.plot(df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate'],
-    df_sites.loc[df_sites['Site'] == 'TL47',ycol],'ok',label='Teller 47')
+    # ax.plot(df_sites.loc[df_sites['Site'] == 'TL47','mean_disp_rate']*0.5,
+    # df_sites.loc[df_sites['Site'] == 'TL47',ycol],'ok',label='Teller 47')
 
-    ax.plot(df_sites.loc[df_sites['Site'] == 'TL27','mean_disp_rate'],
+    ax.plot(df_sites.loc[df_sites['Site'] == 'TL27','mean_disp_rate']*0.5,
     df_sites.loc[df_sites['Site'] == 'TL27',ycol],'ob',label='Teller 27')
 
 
 
 
     ax.set_ylabel(ycollabel)
-    ax.set_xlabel('Horizontal displacement rate (m yr$^{-1}$)')
+    ax.set_xlabel('Soil flux (m$^{2}$ yr$^{-1}$)')
     plt.tight_layout()
     ax.legend()
     plt.savefig(outfig,dpi=300)
     plt.show()
 
 
-fitDispAllData(df_sites,f'{figoutdir}/CNRatioDisplacementCombinedSites.jpg',ycol='C_N_ratio',plotline=False)
+fitDispAllData(df_sites,f'{figoutdir}/TL27CstockDisplacementCombinedSites_flux_.jpg',plotline=False)
 
 ###################################################################
 def normalizeDisplacement(df,site,dispcol = 'mean_disp_rate',sitecol='Site'):
