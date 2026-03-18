@@ -67,8 +67,7 @@ def getValuesinWindow(pFile,wd,outFile,outGPKG,XVALUE,YVALUE,sitename='SampleLoc
     None.
 
     '''
-    #posFile = pd.read_csv(pFile,sep=',')
-    posFile = gpd.read_file(pFile)
+    posFile = pd.read_csv(pFile,sep=',')
     posFile[XVALUE] = pd.to_numeric(posFile[XVALUE], errors="raise")
     posFile[YVALUE] = pd.to_numeric(posFile[YVALUE], errors="raise")
     x=posFile[XVALUE];y=posFile[YVALUE]
@@ -170,15 +169,11 @@ def getValuesinWindow(pFile,wd,outFile,outGPKG,XVALUE,YVALUE,sitename='SampleLoc
     merged.to_csv(outFile)
     merge_gdf.to_file(outGPKG)
 
-getValuesinWindow(pFile='/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement.csv',
-                wd='/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/Rasters/combinedSiteRasters',
-                outFile='//Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement_wcorvars.csv',
-                outGPKG='/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement_wcovars.gpkg',
+getValuesinWindow(pFile='/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/FinalCleanedFiles/KR/KR_Radiocarbon_utmCoords_Corvars.csv',
+                wd='/Users/evanthaler/Documents/Projects/permafrost/SewardLidar/KG64',
+                outFile='/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/FinalCleanedFiles/KR/KR_Radiocarbon_utmCoords_Corvars.csv',
+                outGPKG='/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/FinalCleanedFiles/KR/KR_Radiocarbon_utmCoords_Corvars.gpkg',
                 XVALUE='X',
                 YVALUE='Y')
 
 
-
-
-    
-    
