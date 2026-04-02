@@ -2,18 +2,18 @@ import pandas as pd
 import numpy as np
 
 # === User-defined settings ===
-MAX_DEPTH_CM = 100  # only calculate stocks from 0 to this depth
+MAX_DEPTH_CM = 50  # only calculate stocks from 0 to this depth
 
 # === Load data ===
-data = pd.read_csv("/Users/evanthaler/Documents/permafrost/permafrostCarbon/CleanedLabData/tl47/t47_SOC_BulkDensity_2021Samples.csv")
+data = pd.read_csv("/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/FinalCleanedFiles/KR/KR_CoreSamples_utmCoords_Corvars.csv")
 
 # === Output containers ===
 site_totals = []
 horizon_records = []
 
 # === Loop through each profile ===
-for site in data['Sample'].dropna().unique():
-    df_site = data[data['Sample'] == site].copy()
+for site in data['SampleLocationName'].dropna().unique():
+    df_site = data[data['SampleLocationName'] == site].copy()
 
     # 1. Extract bulk density measurements
     bd_df = df_site[df_site['BD_measurement_cm'].notna() & df_site['BulkDensity_gcm3'].notna()]
@@ -50,7 +50,7 @@ for site in data['Sample'].dropna().unique():
     # 7. Record each horizon
     for _, row in c_df.iterrows():
         horizon_records.append({
-            'Sample': site,
+            'SampleLocationName': site,
             'Top_cm': row['Top_cm'],
             'Bottom_cm': row['Bottom_cm'],
             'Thickness_cm': row['thickness_cm'],
@@ -61,14 +61,14 @@ for site in data['Sample'].dropna().unique():
 
     # 8. Total carbon for profile
     total_carbon = c_df['C_stock_kg_m2'].sum()
-    site_totals.append({'Sample': site, 'C_stock_kg_m2': total_carbon})
+    site_totals.append({'SampleLocationName': site, 'C_stock_kg_m2': total_carbon})
 
 # === Save outputs ===
 df_total = pd.DataFrame(site_totals)
 df_horizons = pd.DataFrame(horizon_records)
 
-df_total.to_csv("/Users/evanthaler/Documents/permafrost/permafrostCarbon/CleanedLabData/tl47/stocks/t47_SOC_BulkDensity_2021Samples_stocks.csv", index=False)
-df_horizons.to_csv("/Users/evanthaler/Documents/permafrost/permafrostCarbon/CleanedLabData/tl47/stocks/t47_SOC_BulkDensity_2021Samples_horizonstocks.csv", index=False)
+df_total.to_csv("/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/FinalCleanedFiles/KR/KR_CoreSamples_stocks.csv", index=False)
+df_horizons.to_csv("/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/FinalCleanedFiles/KR/KR_CoreSamples_horizonStocks.csv", index=False)
 
 print(f"Finished! Profiles truncated to {MAX_DEPTH_CM} cm and outputs saved.")
 
