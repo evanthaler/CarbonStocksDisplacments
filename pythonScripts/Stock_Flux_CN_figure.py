@@ -4,7 +4,7 @@ from scipy.optimize import curve_fit
 import pandas as pd
 import numpy as np
 plt.rcParams.update({'font.size': 14})
-df_sites = pd.read_csv('/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement_multicurv.csv')
+df_sites = pd.read_csv('/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement_covariates_CNratio.csv')
 figoutdir = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs'
 def lognormal_hump(x, a, mu, sigma):
     return a * np.exp(-(np.log(x) - mu)**2 / (2 * sigma**2))
@@ -22,7 +22,7 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
     y = df[ycol]
     x0_init = x[np.argmax(y)]# pick the y peak location for x
     y0_init = y.max()
-    fig,ax = plt.subplots(figsize=(6,5))
+    fig,ax = plt.subplots(figsize=(7,6))
     if plotline:
         
 
@@ -40,7 +40,7 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
         ax.plot(xfit, yfit, color='k', lw=2)
 
 
-    scat1 = ax.scatter(df_sites[xcol]*0.5,df_sites[ycol],c= df_sites[scat_col],s=df_sites['slope']*20,cmap='gist_earth_r',edgecolor='k')
+    scat1 = ax.scatter(df_sites[xcol]*0.5,df_sites[ycol],c= df_sites[scat_col],s=df_sites['slope']*20,cmap='viridis',edgecolor='k')
     #scat2 = ax.scatter(tl27_disp,tl27_ycol,c = tl27_scatcol, s=100,cmap='viridis')
     cbar = plt.colorbar(scat1,label=scat_col_label)
 
@@ -67,17 +67,3 @@ def fitDispAllData(df,outfig,xcol='mean_disp_rate',ycol='Total_C_stock_kg_m2_0to
 
 fitDispAllData(df_sites,f'{figoutdir}/TL27CstockDisplacementCombinedSites_flux_.jpg',plotline=False)
 
-
-
-# fig,ax=plt.subplots(figsize=(6,6))
-# ax.plot(df_sites.C_N_ratio,df_sites.Total_C_stock_kg_m2_0to50cm,'ok')
-# ax.set_ylabel('SOC stocks')
-# ax.set_xlabel('C:N')
-# plt.show()
-
-
-# fig,ax=plt.subplots(figsize=(6,6))
-# ax.plot(df_sites.mean_disp_rate*.5,df_sites.C_N_ratio,'ok')
-# ax.set_xlabel('flux')
-# ax.set_ylabel('C:N')
-# plt.show()
