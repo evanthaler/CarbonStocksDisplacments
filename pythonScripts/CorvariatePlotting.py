@@ -94,3 +94,32 @@ for ax in axes[[0]]:
 plt.tight_layout()
 plt.savefig(f'{figoutdir}/CStocksCovariates.jpg', dpi=300)
 plt.show()
+
+
+fig, axes = plt.subplots(1,3, figsize=(10, 5), sharey=True)
+axes = axes.flatten()
+for ax, col,colname in zip(axes, cols_to_plot,cols):
+    x,y = df_sites[col],df_sites.C_N_ratio
+    linstats = linregress(x,y)
+    
+    yline = linstats.slope * x + linstats.intercept
+
+    ax.plot(x,y,  'ok')
+    #ax.text(0.25*max(x),0.025,f'$r^{2}$={linstats.rvalue**2:.2f}')
+    ax.text( 0.05, 0.9,  # position (top-left)
+        f'$R^2$ = {linstats.rvalue**2:.2f}\np = {linstats.pvalue:.3f}',
+        transform=ax.transAxes,
+        verticalalignment='top')
+    if linstats.pvalue < 0.05:
+        ax.plot(x, yline, '-k', lw=3)
+    else:
+        ax.plot(x, yline, '-',color='gray', lw=1, ms=10)
+
+    ax.set_xlabel(colname)
+for ax in axes[[0]]:
+    ax.set_ylabel('C:N')
+
+
+plt.tight_layout()
+plt.savefig(f'{figoutdir}/C_NCovariates.jpg', dpi=300)
+plt.show()
