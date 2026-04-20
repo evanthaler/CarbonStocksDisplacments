@@ -22,7 +22,7 @@ def wgs84_to_utm(lat, lon, utm_zone, northern_hemisphere=True):
     return easting, northing
 
 
-f = pd.read_csv('/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/gpsData/KG64_C14Samples.csv')
+f = pd.read_csv('/Users/evanthaler/Documents/Projects/OSU/EPARiskMapping/datasets/IDFs/station_idf_values_ID.csv')
 x=[];y=[]
 for i in np.arange(0,len(f.lat)):     
 
@@ -31,4 +31,4 @@ for i in np.arange(0,len(f.lat)):
 #Looks weird to have x-->y, but the order gets reversed by from_proj
 f['X'] = np.array(y)
 f['Y'] = np.array(x)
-f.to_csv('/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/gpsData/KG64_C14Samples_utmCoords.csv')
+f.to_csv('/Users/evanthaler/Documents/Projects/OSU/EPARiskMapping/datasets/IDFs/station_idf_values_ID_utmcoords.csv')
