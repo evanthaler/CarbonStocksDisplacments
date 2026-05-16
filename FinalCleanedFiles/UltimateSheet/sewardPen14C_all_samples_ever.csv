@@ -1,0 +1,167 @@
+Name,Person,also known as,description,depth (cm) min,depth (cm) max,material,Date cal BP,Date unc BP,NOSAMS age,NOSAMS err,lon,lat
+kk1-210-220,Eitan,kk1-210-220,"14C Age: 2460 +/- 30 BP
+Sample Depth: 210 -220",210,220,,2560,30,,,-164.6737727,65.4332587
+TP2-30-39,Eitan,TP2-30-39,"Radio Carbon Age: 3380 +/- 30 BP
+Depth: 30-39 cm",30,39,,3380,30,,,-166.162672,65.02715365
+TP4-163-177,Eitan,TP4-163-177,"Radio Carbon Age: 4130 +/- 30 BP
+Depth: 163-177 cm",163,177,,4130,30,,,-166.1537854,65.02841199
+TL47 Core 11,Eitan,TR47COR11_53_61,"Depth/Ages: 
+53-61 cm  	500 +/- 30 BP
+83-87 cm	1220 +/- 30 BP
+98-103 cm	1620 +/- 30 BP",53,61,,500,30,,,-166.206706,64.978415
+TL47 Core 11,Eitan,TR47COR11_83_87,"Depth/Ages: 
+53-61 cm  	500 +/- 30 BP
+83-87 cm	1220 +/- 30 BP
+98-103 cm	1620 +/- 30 BP",83,87,,1220,30,,,-166.206706,64.978415
+TL47 Core 11,Eitan,TR47COR11_98_103,"Depth/Ages: 
+53-61 cm  	500 +/- 30 BP
+83-87 cm	1220 +/- 30 BP
+98-103 cm	1620 +/- 30 BP",98,103,,1620,30,,,-166.206706,64.978415
+Scarp Headwall,Eitan,TR47_SC1_223_wood,"Depth Material Age
+223 cm Wood Fragment		1790 +/- 30 BP
+223 cm Organic Sediment		2200 +/- 30 BP
+278 cm Wood Fragment 		2450 +/- 30 BP
+278 cm Organic Sediment	(Bulk)	3250 +/- 30 BP
+319 cm Organic Sediment		16800 +/- 50 BP",223,223,wood fragment,1790,30,,,-166.2151924,64.96922236
+Scarp Headwall,Eitan,TR47_SC1_223,"Depth Material Age
+223 cm Wood Fragment		1790 +/- 30 BP
+223 cm Organic Sediment		2200 +/- 30 BP
+278 cm Wood Fragment 		2450 +/- 30 BP
+278 cm Organic Sediment	(Bulk)	3250 +/- 30 BP
+319 cm Organic Sediment		16800 +/- 50 BP",223,223,organic sediment,2220,30,,,-166.2151924,64.96922236
+Scarp Headwall,Eitan,TR47_SC1-278_wood,"Depth Material Age
+223 cm Wood Fragment		1790 +/- 30 BP
+223 cm Organic Sediment		2200 +/- 30 BP
+278 cm Wood Fragment 		2450 +/- 30 BP
+278 cm Organic Sediment	(Bulk)	3250 +/- 30 BP
+319 cm Organic Sediment		16800 +/- 50 BP",278,278,wood fragment,2450,30,,,-166.2151924,64.96922236
+Scarp Headwall,Eitan,TR47_SC1_278_BULK,"Depth Material Age
+223 cm Wood Fragment		1790 +/- 30 BP
+223 cm Organic Sediment		2200 +/- 30 BP
+278 cm Wood Fragment 		2450 +/- 30 BP
+278 cm Organic Sediment	(Bulk)	3250 +/- 30 BP
+319 cm Organic Sediment		16800 +/- 50 BP",278,278,organic sediment,3250,30,,,-166.2151924,64.96922236
+Scarp Headwall,Eitan,TR47_SC1_319,"Depth Material Age
+223 cm Wood Fragment		1790 +/- 30 BP
+223 cm Organic Sediment		2200 +/- 30 BP
+278 cm Wood Fragment 		2450 +/- 30 BP
+278 cm Organic Sediment	(Bulk)	3250 +/- 30 BP
+319 cm Organic Sediment		16800 +/- 50 BP",319,319,organic sediment,16800,50,,,-166.2151924,64.96922236
+KR_GullyPit3,Evan?,,"Hillslope Depoit
+
+KR_Pit3_75cm  3,660+/-20 yrs -- wood sample
+KR_Pit3_220cm  4,370+/-25 yrs -- wood sample
+
+
+
+",75,75,wood fragment,3660,20,,,-164.703612,65.43106667
+KR_GullyPit3,Evan?,,"Hillslope Depoit
+
+KR_Pit3_75cm  3,660+/-20 yrs -- wood sample
+KR_Pit3_220cm  4,370+/-25 yrs -- wood sample
+
+
+
+",220,220,wood fragment,4370,25,,,-164.703612,65.43106667
+KR_GullyPit4,Evan?,,"KR_Pit4_95cm 1,470+/-15 yrs -- wood sample
+KR_Pit4_134cm 1,740+/-20 yrs -- wood sample
+
+",95,95,wood fragment,1470,15,,,-164.703612,65.43106667
+KR_GullyPit4,Evan?,,"KR_Pit4_95cm 1,470+/-15 yrs -- wood sample
+KR_Pit4_134cm 1,740+/-20 yrs -- wood sample
+
+",134,134,wood fragment,1740,20,,,-164.703612,65.43106667
+KR_GullyPit2,Evan?,,"KR_Pit2_115cm 6,050+/-30 yrs -- wood sample
+KR_Pit2_150cm 2,800+/-20 yrs -- wood sample
+KR_Pit2_180cm 2,820+/-20 yrs -- wood sample
+
+
+
+
+",115,115,wood fragment,6050,30,,,-164.704203,65.43118333
+KR_GullyPit2,Evan?,,"KR_Pit2_115cm 6,050+/-30 yrs -- wood sample
+KR_Pit2_150cm 2,800+/-20 yrs -- wood sample
+KR_Pit2_180cm 2,820+/-20 yrs -- wood sample
+
+
+
+
+",150,150,wood fragment,2800,20,,,-164.704203,65.43118333
+KR_GullyPit2,Evan?,,"KR_Pit2_115cm 6,050+/-30 yrs -- wood sample
+KR_Pit2_150cm 2,800+/-20 yrs -- wood sample
+KR_Pit2_180cm 2,820+/-20 yrs -- wood sample
+
+
+
+
+",180,180,wood fragment,2820,20,,,-164.704203,65.43118333
+KR_Gully2_PitA,Evan?,,"KR_Gully2_PitA_120cm 1,950+/-25 yrs -- wood sample
+KR_Gully2_PitA_150cm 1,980+/-15 yrs -- wood sample
+
+
+
+
+",120,120,wood fragment,1950,25,,,-164.6994878,65.4399651
+KR_Gully2_PitA,Evan?,,"KR_Gully2_PitA_120cm 1,950+/-25 yrs -- wood sample
+KR_Gully2_PitA_150cm 1,980+/-15 yrs -- wood sample
+
+
+
+
+",150,150,wood fragment,1980,15,,,-164.6994878,65.4399651
+TL47_DoubleTreeFailure,Evan?,,"T47_DBT_Pit3_10-15cm >Modern -- root ball
+T47_DBT_Pit1_190cm 740+/-20 yrs -- small roots
+
+
+
+",10,15,root ball,>Modern,,,,-166.220999,64.97755278
+TL47_DoubleTreeFailure,Evan?,,"T47_DBT_Pit3_10-15cm >Modern -- root ball
+T47_DBT_Pit1_190cm 740+/-20 yrs -- small roots
+
+
+
+",190,190,small roots,740,20,,,-166.220999,64.97755278
+KR_GullyPit5,Evan?,,"KR_Pit5_95cm  1,060+/-15 yrs -- wood sample
+KR_Pit5_180cm 1,420+/-25 yrs -- wood samples
+KR_Pit5_220cm 1,800+/-20 yrs -- wood sample
+
+
+
+
+",95,95,wood fragment,1060,15,,,-164.692883,65.43005278
+KR_GullyPit5,Evan?,,"KR_Pit5_95cm  1,060+/-15 yrs -- wood sample
+KR_Pit5_180cm 1,420+/-25 yrs -- wood samples
+KR_Pit5_220cm 1,800+/-20 yrs -- wood sample
+
+
+
+
+",180,180,wood fragment,1420,25,,,-164.692883,65.43005278
+KR_GullyPit5,Evan?,,"KR_Pit5_95cm  1,060+/-15 yrs -- wood sample
+KR_Pit5_180cm 1,420+/-25 yrs -- wood samples
+KR_Pit5_220cm 1,800+/-20 yrs -- wood sample
+
+
+
+
+",220,220,wood fragment,1800,20,,,-164.692883,65.43005278
+KG1,Joanmarie,"kg_1_131-139, 1",,131,139,Plant/Wood,,,"7,690",50,-164.8130035,65.1669006
+KG1,Joanmarie,"kg_1_43-45, 3",,43,45,Plant/Wood,,,940,15,-164.8130035,65.1669006
+TL33,Joel?,"tl33_lf_80, 4",,80,80,Plant/Wood,,,"1,760",15,,
+TL33,Joel?,"tl33_lf_120-130, 5",,120,130,Plant/Wood,,,"1,570",15,,
+KG3,Joanmarie,"kg_3_45, 6",,45,45,Plant/Wood,,,>Modern,,-164.8139954,65.1664963
+KG3,Joanmarie,"kg_3_136-143, 7",,136,143,Plant/Wood,,,"12,650",70,-164.8139954,65.1664963
+KG3,Joanmarie,"kg_3_214-224, 8",,214,224,Plant/Wood,,,"13,500",70,-164.8139954,65.1664963
+TL47_Face2,Joanmarie,"tl47_fa2_140, 13",,140,140,Plant/Wood,,,985,15,-166.2140045,64.9748001
+TL47_Face1,Joanmarie,"tl47_fa1_182, 14",,182,182,Plant/Wood,,,505,15,-166.2189941,64.9778976
+TL47_Face2,Joanmarie,"tl46_fa_1_150, 15",,150,150,Plant/Wood,,,195,15,-166.2189941,64.9778976
+TL47_Face3,Joanmarie,"tl47_fa_1_105, 16",,105,105,Plant/Wood,,,185,15,-166.2189941,64.9778976
+TL47_19_2,Joanmarie,"tl47_2_140-145, 22",,140,145,Plant/Wood,,,"2,230",15,-166.2109985,64.9775009
+Joel Hoel,Joel,"tl47_tr_1-A, 12",,,,Plant/Wood,,,485,15,-166.2119249,64.97954398
+Joel Hoel,Joel,"tl47_tr_3-C, 11",,,,Plant/Wood,,,155,15,-166.2119249,64.97954398
+Joel Hoel,Joel,"tl47_tr_6-F, 10",,,,Plant/Wood,,,130,15,-166.2119249,64.97954398
+Joel Hoel,Joel,"tl47_tr_8-H, 18",,,,Plant/Wood,,,100,15,-166.2119249,64.97954398
+Joel Hoel,Joel,"tl47_tr_9-J, 19",,,,Plant/Wood,,,170,15,-166.2119249,64.97954398
+Joel Hoel,Joel,"tl47_tr_11-L, 9",,,,Plant/Wood,,,325,15,-166.2119249,64.97954398
+Joel Hoel,Joel,"tl47_tr_12-N, 20",,,,Plant/Wood,,,>Modern,,-166.2119249,64.97954398
+Joel Hoel,Joel,"tl47_tr_13-O, 21",,,,Plant/Wood,,,125,15,-166.2119249,64.97954398

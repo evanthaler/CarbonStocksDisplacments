@@ -31,6 +31,8 @@ print(cn_linstats.rvalue**2,cn_linstats.pvalue)
 #########
 #Plotting Displacment and covars for each site
 #########
+labels = ['a', 'b', 'c']
+
 cols_to_plot = ['slope','curv','drainagearea']
 cols = ['Slope (degrees)',
             'Curvature (m$^{-1}$)',
@@ -38,26 +40,43 @@ cols = ['Slope (degrees)',
 
 fig, axes = plt.subplots(1,3, figsize=(10, 5), sharey=True)
 axes = axes.flatten()
-for ax, col,colname in zip(axes, cols_to_plot,cols):
-    x,y = df_sites[col],df_sites.mean_disp_rate*0.5
-    linstats = linregress(x,y)
-    
+
+labels = ['a', 'b', 'c']
+
+for ax, col, colname, label in zip(axes, cols_to_plot, cols, labels):
+
+    x, y = df_sites[col], df_sites.mean_disp_rate
+    linstats = linregress(x, y)
+
     yline = linstats.slope * x + linstats.intercept
 
-    ax.plot(x,y,  'ok')
-    #ax.text(0.25*max(x),0.025,f'$r^{2}$={linstats.rvalue**2:.2f}')
-    ax.text( 0.05, 0.9,  # position (top-left)
+    ax.plot(x, y, 'ok')
+
+    # R2 and p-value
+    ax.text(
+        0.05, 0.9,
         f'$R^2$ = {linstats.rvalue**2:.2f}\np = {linstats.pvalue:.3f}',
         transform=ax.transAxes,
-        verticalalignment='top')
+        verticalalignment='top'
+    )
+
+    # subplot label
+    ax.text(
+        0.02, 0.98,
+        f'{label}',
+        transform=ax.transAxes,
+        fontsize=14,
+        fontweight='bold',
+        va='top'
+    )
+
     if linstats.pvalue < 0.05:
         ax.plot(x, yline, '-k', lw=3)
     else:
-        ax.plot(x, yline, '-',color='gray', lw=1, ms=10)
+        ax.plot(x, yline, '-', color='gray', lw=1, ms=10)
 
     ax.set_xlabel(colname)
-for ax in axes[[0]]:
-    ax.set_ylabel('Soil flux (m$^{2}$ yr$^{-1}$)')
+axes[0].set_ylabel('Soil flux (m$^{2}$ yr$^{-1}$)')
 
 
 plt.tight_layout()
@@ -69,57 +88,229 @@ plt.show()
 
 fig, axes = plt.subplots(1,3, figsize=(10, 5), sharey=True)
 axes = axes.flatten()
-for ax, col,colname in zip(axes, cols_to_plot,cols):
-    x,y = df_sites[col],df_sites.Total_C_stock_kg_m2_0to50cm
-    linstats = linregress(x,y)
-    
+
+for ax, col, colname, label in zip(axes, cols_to_plot, cols, labels):
+
+    x, y = df_sites[col], df_sites.Total_C_stock_kg_m2_0to50cm
+    linstats = linregress(x, y)
+
     yline = linstats.slope * x + linstats.intercept
 
-    ax.plot(x,y,  'ok')
-    #ax.text(0.25*max(x),0.025,f'$r^{2}$={linstats.rvalue**2:.2f}')
-    ax.text( 0.05, 0.9,  # position (top-left)
-        f'$R^2$ = {linstats.rvalue**2:.2f}\np = {linstats.pvalue:.3f}',
+    ax.plot(x, y, 'ok')
+    # R2 and p-value
+    ax.text(
+        0.05, 0.9,
+        f'$r^2$ = {linstats.rvalue**2:.2f}\np = {linstats.pvalue:.3f}',
         transform=ax.transAxes,
-        verticalalignment='top')
+        verticalalignment='top'
+    )
+
+    # subplot label
+    ax.text(
+        0.02, 0.98,
+        f'{label}',
+        transform=ax.transAxes,
+        fontsize=14,
+        fontweight='bold',
+        va='top'
+    )
+
     if linstats.pvalue < 0.05:
         ax.plot(x, yline, '-k', lw=3)
     else:
-        ax.plot(x, yline, '-',color='gray', lw=1, ms=10)
+        ax.plot(x, yline, '-', color='gray', lw=1, ms=10)
 
     ax.set_xlabel(colname)
-for ax in axes[[0]]:
-    ax.set_ylabel('Soil organic carbon stock (kg m$^{-2}$)')
 
+axes[0].set_ylabel('Soil organic carbon stock (kg m$^{-2}$)')
 
 plt.tight_layout()
 plt.savefig(f'{figoutdir}/CStocksCovariates.jpg', dpi=300)
 plt.show()
 
 
+
 fig, axes = plt.subplots(1,3, figsize=(10, 5), sharey=True)
 axes = axes.flatten()
-for ax, col,colname in zip(axes, cols_to_plot,cols):
-    x,y = df_sites[col],df_sites.C_N_ratio
-    linstats = linregress(x,y)
-    
+
+for ax, col, colname, label in zip(axes, cols_to_plot, cols, labels):
+
+    x, y = df_sites[col], df_sites.C_N_ratio
+    linstats = linregress(x, y)
+
     yline = linstats.slope * x + linstats.intercept
 
-    ax.plot(x,y,  'ok')
-    #ax.text(0.25*max(x),0.025,f'$r^{2}$={linstats.rvalue**2:.2f}')
-    ax.text( 0.05, 0.9,  # position (top-left)
-        f'$R^2$ = {linstats.rvalue**2:.2f}\np = {linstats.pvalue:.3f}',
+    ax.plot(x, y, 'ok')
+
+    # R2 and p-value
+    ax.text(
+        0.05, 0.9,
+        f'$r^2$ = {linstats.rvalue**2:.2f}\np = {linstats.pvalue:.3f}',
         transform=ax.transAxes,
-        verticalalignment='top')
+        verticalalignment='top'
+    )
+
+    # subplot label
+    ax.text(
+        0.02, 0.98,
+        f'{label}',
+        transform=ax.transAxes,
+        fontsize=14,
+        fontweight='bold',
+        va='top'
+    )
+
     if linstats.pvalue < 0.05:
         ax.plot(x, yline, '-k', lw=3)
     else:
-        ax.plot(x, yline, '-',color='gray', lw=1, ms=10)
+        ax.plot(x, yline, '-', color='gray', lw=1, ms=10)
 
     ax.set_xlabel(colname)
-for ax in axes[[0]]:
-    ax.set_ylabel('C:N')
 
+axes[0].set_ylabel('C:N')
 
 plt.tight_layout()
 plt.savefig(f'{figoutdir}/C_NCovariates.jpg', dpi=300)
+plt.show()
+
+
+
+
+
+
+
+# ###################################################################
+# Plotting displacement + C stocks together (2 rows x 3 columns)
+# ###################################################################
+
+
+
+cols_to_plot = ['slope', 'curv', 'drainagearea']
+
+cols = [
+    'Slope (degrees)',
+    'Curvature (m$^{-1}$)',
+    'Drainage area (m$^{2}$)'
+]
+
+# panel labels
+labels = ['a', 'b', 'c', 'd', 'e', 'f']
+
+# create figure
+fig, axes = plt.subplots(
+    2, 3,
+    figsize=(12, 12),
+    sharex='col'
+)
+
+axes = axes.flatten()
+
+# ==========================================================
+# TOP ROW — Displacement
+# ==========================================================
+
+for i, (ax, col, colname, label) in enumerate(
+    zip(axes[:3], cols_to_plot, cols, labels[:3])
+):
+
+    x = df_sites[col]
+    y = df_sites.mean_disp_rate
+
+    linstats = linregress(x, y)
+    yline = linstats.slope * x + linstats.intercept
+
+    # points
+    ax.plot(x, y, 'ok')
+
+    # regression line
+    if linstats.pvalue < 0.05:
+        ax.plot(x, yline, '-k', lw=3)
+    else:
+        ax.plot(x, yline, '-', color='gray', lw=1)
+
+    # stats text
+    ax.text(
+        0.05, 0.90,
+        f'$r^2$ = {linstats.rvalue**2:.2f}\np = {linstats.pvalue:.3f}',
+        transform=ax.transAxes,
+        va='top'
+    )
+
+    # subplot label
+    ax.text(
+        0.02, 0.98,
+        label,
+        transform=ax.transAxes,
+        fontsize=14,
+        fontweight='bold',
+        va='top'
+    )
+
+    # x labels only on bottom row
+    
+
+# y-axis label
+axes[0].set_ylabel('Soil flux (m$^{2}$ yr$^{-1}$)')
+
+
+# ==========================================================
+# BOTTOM ROW — Carbon stocks
+# ==========================================================
+
+for i, (ax, col, colname, label) in enumerate(
+    zip(axes[3:], cols_to_plot, cols, labels[3:])
+):
+
+    x = df_sites[col]
+    y = df_sites.Total_C_stock_kg_m2_0to50cm
+
+    linstats = linregress(x, y)
+    yline = linstats.slope * x + linstats.intercept
+
+    # points
+    ax.plot(x, y, 'ok')
+
+    # regression line
+    if linstats.pvalue < 0.05:
+        ax.plot(x, yline, '-k', lw=3)
+    else:
+        ax.plot(x, yline, '-', color='gray', lw=1)
+
+    # stats text
+    ax.text(
+        0.05, 0.90,
+        f'$r^2$ = {linstats.rvalue**2:.2f}\np = {linstats.pvalue:.3f}',
+        transform=ax.transAxes,
+        va='top'
+    )
+
+    # subplot label
+    ax.text(
+        0.02, 0.98,
+        label,
+        transform=ax.transAxes,
+        fontsize=14,
+        fontweight='bold',
+        va='top'
+    )
+
+    # x-axis labels
+    ax.set_xlabel(colname)
+
+# y-axis label
+axes[3].set_ylabel('SOC stock (kg m$^{-2}$)')
+
+
+# ==========================================================
+# Final formatting
+# ==========================================================
+
+plt.tight_layout()
+
+plt.savefig(
+    f'{figoutdir}/Displacement_CStock_Covariates.jpg',
+    dpi=300,
+    bbox_inches='tight'
+)
+
 plt.show()
