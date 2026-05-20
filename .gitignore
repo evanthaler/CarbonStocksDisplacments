@@ -311,3 +311,4 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/microsoftoffice,macos,python,windows,r
 .DS_Store
 .DS_Store
+mapData/politicalboundaries_shapefile/Terms of use.doc

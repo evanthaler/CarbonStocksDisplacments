@@ -23,15 +23,15 @@ def plot_points_in_inset(ax, gdf_points, *, face="deepskyblue", edge="black", s=
 # ============================================================
 # Load data
 # ============================================================
-or_shp = gpd.read_file('/Users/evanthaler/Documents/Projects/OSU/StateShapefiles/tl_2023_us_state/tl_2023_us_state.shp').to_crs('epsg:26910')
-or_shp = or_shp[or_shp.STUSPS.isin(['OR', 'WA', 'CA','ID','NV'])]
+ak_shp = gpd.read_file('/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/mapData/tl_2025_02_sldl').to_crs('epsg:26910')
+ak_shp = ak_shp[ak_shp.STUSPS.isin(['AK'])]
 #/Users/evanthaler/Documents/Projects/OSU/StateShapefiles/tl_2023_us_state/tl_2023_us_state.shp
 #/Users/evanthaler/Documents/Projects/OSU/ORgpkg.gpkg
-burned = gpd.read_file('/Users/evanthaler/Documents/Projects/OSU/PimontEdits/Data/PimontGeospatialData/BurnedWatershed.shp').to_crs(or_shp.crs)
-burned_points = gpd.read_file('/Users/evanthaler/Documents/Projects/OSU/PimontEdits/Data/PimontGeospatialData/Infestation Creek Sampling Locations.shp').to_crs(or_shp.crs)
+burned = gpd.read_file('/Users/evanthaler/Documents/Projects/OSU/PimontEdits/Data/PimontGeospatialData/BurnedWatershed.shp').to_crs(ak_shp.crs)
+burned_points = gpd.read_file('/Users/evanthaler/Documents/Projects/OSU/PimontEdits/Data/PimontGeospatialData/Infestation Creek Sampling Locations.shp').to_crs(ak_shp.crs)
 
-unburned = gpd.read_file('/Users/evanthaler/Documents/Projects/OSU/PimontEdits/Data/PimontGeospatialData/Unburned_Catchment_Export.shp').to_crs(or_shp.crs)
-unburned_points = gpd.read_file('/Users/evanthaler/Documents/Projects/OSU/PimontEdits/Data/PimontGeospatialData/False_Berry_Merged_2024.shp').to_crs(or_shp.crs)
+unburned = gpd.read_file('/Users/evanthaler/Documents/Projects/OSU/PimontEdits/Data/PimontGeospatialData/Unburned_Catchment_Export.shp').to_crs(ak_shp.crs)
+unburned_points = gpd.read_file('/Users/evanthaler/Documents/Projects/OSU/PimontEdits/Data/PimontGeospatialData/False_Berry_Merged_2024.shp').to_crs(ak_shp.crs)
 
 hillshade_path = "/Users/evanthaler/Documents/Projects/OSU/PimontEdits/Data/PimontGeospatialData/USGS_Hillshade_epsg26910.tif"
 burnraster = "/Users/evanthaler/Documents/Projects/OSU/PimontEdits/Data/PimontGeospatialData/MTBSBurnSeverityClasses_epsg26910.tif"
@@ -147,7 +147,7 @@ ax_inset = inset_axes(
 )
 
 # 2) Reproject the state layer to 5070 for the inset
-states_5070 = or_shp.to_crs("EPSG:5070")
+states_5070 = ak_shp.to_crs("EPSG:5070")
 
 # --- pick which states to draw in inset ---
 # Include OR by default so your star/box are clearly in context.
@@ -175,7 +175,7 @@ ax_inset.set_ylim(ymin, ymax)
 # 4) Reproject sampling points to 5070 and compute a single representative location (star)
 all_pts = gpd.GeoDataFrame(
     pd.concat([burned_points, unburned_points], ignore_index=True),
-    crs=or_shp.crs
+    crs=ak_shp.crs
 ).to_crs("EPSG:5070")
 
 star_x = all_pts.geometry.x.mean()
