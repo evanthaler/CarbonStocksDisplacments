@@ -78,7 +78,7 @@ def fitDispAllData(
     scat_col1='C_N_ratio',
     scat_col_label1='C:N mean of interval',
     scat_col2='mean_temp_50cm',
-    scat_col_label2='Mean annual temperature ($^{\\circ}$C) 50 cm depth',
+    scat_col_label2='Mean annual temperature 50 cm depth ($^{\\circ}$C)',
     plotline=True
 ):
 
@@ -241,19 +241,19 @@ def fitDispAllData(
 
     plt.tight_layout()
 
-    plt.savefig(
-        outfig,
-        dpi=300,
-        bbox_inches='tight'
-    )
+    # plt.savefig(
+    #     outfig,
+    #     dpi=300,
+    #     bbox_inches='tight'
+    # )
 
     plt.show()
-
+    plt.close()
 
 fitDispAllData(
     df_sites,   
     scat_col2='days_unfrozen_below_50cm',
     scat_col_label2='Unfrozen days below 50 cm depth',
-    outfig=f'{figoutdir}/Cstock_CN_DisplacementCombinedSites_flux.jpg',
+    outfig=f'{figoutdir}/Cstock_CN_DisplacementCombinedSites_flux_temp.jpg',
     plotline=True
 )
