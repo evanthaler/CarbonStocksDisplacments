@@ -1,11 +1,12 @@
 import matplotlib.pyplot as plt
 from scipy.stats import linregress
 from scipy.optimize import curve_fit
-import pandas as pd
+import geopandas as gpd
 import numpy as np
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 plt.rcParams.update({'font.size': 14})
-df_sites = pd.read_csv('/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement_covariates_CNratio.csv')
-figoutdir = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs'
+df_sites = gpd.read_file('FinalCleanedFiles/wDisplacement/Tl47Tl27CarbonDisplacementTempsTopo.gpkg')
+figoutdir = 'figs'
 def lognormal_hump(x, a, mu, sigma):
     return a * np.exp(-(np.log(x) - mu)**2 / (2 * sigma**2))
 def linear_exp(x, x0, y0, m, k):
@@ -74,8 +75,10 @@ def fitDispAllData(
     xcol='mean_disp_rate',
     ycol='Total_C_stock_kg_m2_0to50cm',
     ycollabel='Soil organic carbon stock (kg m$^{-2}$)',
-    scat_col='C_N_ratio',
-    scat_col_label='C:N mean of interval',
+    scat_col1='C_N_ratio',
+    scat_col_label1='C:N mean of interval',
+    scat_col2='mean_temp_50cm',
+    scat_col_label2='Mean annual temperature ($^{\\circ}$C) 50 cm depth',
     plotline=True
 ):
 
@@ -83,10 +86,9 @@ def fitDispAllData(
     # DATA
     # ==========================================================
 
-    x_flux = df[xcol] * 0.5
-    y_stock = df[ycol]
-    y_cn = df[scat_col]
-
+    x_flux = df[xcol].astype(float) * 0.5
+    y_stock = df[ycol].astype(float)
+    y_cn = df[scat_col1].astype(float)
     # ==========================================================
     # FIGURE
     # ==========================================================
@@ -106,7 +108,7 @@ def fitDispAllData(
     scat1 = ax1.scatter(
         x_flux,
         y_stock,
-        c=df[scat_col],
+        c=df[scat_col1],
         s=df['slope'] * 20,
         cmap='viridis',
         edgecolor='k'
@@ -133,6 +135,9 @@ def fitDispAllData(
     scat2 = ax2.scatter(
         x_flux,
         y_cn,
+        c=df[scat_col2],
+        s=100,
+        cmap ='Blues_r',
         edgecolor='k'
     )
 
@@ -166,14 +171,49 @@ def fitDispAllData(
     # ==========================================================
     # COLORBAR
     # ==========================================================
+    divider1 = make_axes_locatable(ax1)
+    divider2 = make_axes_locatable(ax2)
+    # cbar1 = fig.colorbar(
+    #     scat1,
+    #     ax=ax1,
+    #     label=scat_col_label1,
+    #     shrink=0.9
+    # )
+    cax1 = divider1.append_axes(
+    "top",
+    size="5%",
+    pad=0.1
+)
 
-    cbar = fig.colorbar(
+    cbar1 = fig.colorbar(
         scat1,
-        ax=ax1,
-        label=scat_col_label,
-        shrink=0.9
+        cax=cax1,
+        orientation="horizontal"
     )
 
+    cbar1.set_label(scat_col_label1)
+    cax1.xaxis.set_ticks_position('top')
+    cax1.xaxis.set_label_position('top')
+
+    # cbar2 = fig.colorbar(
+    #     scat2,
+    #     ax=ax2,
+    #     label=scat_col_label2,
+    #     shrink=0.9
+    # )
+    cax2 = divider2.append_axes(
+        "top",
+        size="5%",
+        pad=0.1
+    )
+    cbar2 = fig.colorbar(
+        scat2,
+        cax=cax2,
+        orientation='horizontal'
+    )
+    cbar2.set_label(scat_col_label2)
+    cax2.xaxis.set_ticks_position('top')
+    cax2.xaxis.set_label_position('top')
     # ==========================================================
     # SIZE LEGEND
     # ==========================================================
@@ -211,7 +251,9 @@ def fitDispAllData(
 
 
 fitDispAllData(
-    df_sites,
-    f'{figoutdir}/Cstock_CN_DisplacementCombinedSites_flux.jpg',
+    df_sites,   
+    scat_col2='days_unfrozen_below_50cm',
+    scat_col_label2='Unfrozen days below 50 cm depth',
+    outfig=f'{figoutdir}/Cstock_CN_DisplacementCombinedSites_flux.jpg',
     plotline=True
 )

@@ -2,14 +2,16 @@ import matplotlib.pyplot as plt
 from scipy.stats import linregress
 from scipy.optimize import curve_fit
 import pandas as pd
+import geopandas as gpd
 import numpy as np
 plt.rcParams.update({'font.size': 14})
-df_sites = pd.read_csv('/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/FinalCleanedFiles/wDisplacement/TL47TL27StocksDisplacement_covariates_CNratio.csv')
-figoutdir = '/Users/evanthaler/Documents/GitHub/CarbonStocksDisplacments/figs'
+
+df_sites = gpd.read_file('FinalCleanedFiles/wDisplacement/Tl47Tl27CarbonDisplacementTempsTopo.gpkg')
+figoutdir = 'figs'
 
 
 
-x,y = df_sites.mean_disp_rate*0.5,df_sites.C_N_ratio
+x,y = df_sites.mean_disp_rate.astype(float)*0.5,df_sites.C_N_ratio
 cn_linstats = linregress(x,y)
 fig,ax = plt.subplots(figsize=(6,6))
 ax.plot(x,y,'.k',markersize=12)
@@ -18,7 +20,7 @@ ax.set_ylabel('C:N')
 ax.set_xlabel('Soil flux (m$^{2}$ yr$^{-1}$)')
 plt.text(0.05*0.5, 13,f'$r^{2}$={cn_linstats.rvalue**2:.2f}')
 plt.text(0.05*0.5, 12.5,f'$p$={cn_linstats.pvalue:.3f}')
-plt.savefig(f'{figoutdir}/CNvsFluxes.jpg',dpi=300)
+#plt.savefig(f'{figoutdir}/CNvsFluxes.jpg',dpi=300)
 plt.show()
 print(cn_linstats.rvalue**2,cn_linstats.pvalue)
 
@@ -293,7 +295,7 @@ for i, (ax, col, colname, label) in enumerate(
         fontweight='bold',
         va='top'
     )
-
+    
     # x-axis labels
     ax.set_xlabel(colname)
 
@@ -314,3 +316,7 @@ plt.savefig(
 )
 
 plt.show()
+
+
+
+

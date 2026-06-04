@@ -169,10 +169,10 @@ def getValuesinWindow(pFile,wd,outFile,outGPKG,XVALUE,YVALUE,sitename='SampleLoc
     merged.to_csv(outFile)
     merge_gdf.to_file(outGPKG)
 
-getValuesinWindow(pFile='/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/FinalCleanedFiles/KR/KR_Radiocarbon_utmCoords_Corvars.csv',
+getValuesinWindow(pFile='FinalCleanedFiles/KR/KR_Radiocarbon_utmCoords_Corvars.csv',
                 wd='/Users/evanthaler/Documents/Projects/permafrost/SewardLidar/KG64',
-                outFile='/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/FinalCleanedFiles/KR/KR_Radiocarbon_utmCoords_Corvars.csv',
-                outGPKG='/Users/evanthaler/Documents/Projects/permafrost/permafrostCarbon/FinalCleanedFiles/KR/KR_Radiocarbon_utmCoords_Corvars.gpkg',
+                outFile='FinalCleanedFiles/KR/KR_Radiocarbon_utmCoords_Corvars.csv',
+                outGPKG='FinalCleanedFiles/KR/KR_Radiocarbon_utmCoords_Corvars.gpkg',
                 XVALUE='X',
                 YVALUE='Y')
 
