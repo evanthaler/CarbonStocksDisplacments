@@ -17,7 +17,6 @@ df_sites = df_sites.merge(df_curvgrids,on='SampleLocationName')
 df_sites['mean_disp_rate']=df_sites.mean_disp_rate.astype(float)
 df_sites['Total_C_stock_kg_m2_0to50cm']=df_sites.Total_C_stock_kg_m2_0to50cm.astype(float)
 
-figoutdir = 'figs'
 cols_to_plot = ['slope','curv','drainagearea']
 cols = ['Slope (degrees)',
             'Curvature (m$^{-1}$)',
@@ -25,7 +24,7 @@ cols = ['Slope (degrees)',
 
 labels = ['a', 'b', 'c', 'd', 'e', 'f']
 
-save_fig = False
+save_fig = True
 
 
 
@@ -36,7 +35,7 @@ save_fig = False
 # create figure
 fig, axes = plt.subplots(
     2, 3,
-    figsize=(12, 12),
+    figsize=(8,8),
     sharex='col'
 )
 
@@ -51,7 +50,7 @@ for i, (ax, col, colname, label) in enumerate(
 ):
 
     x = df_sites[col]
-    y = df_sites.mean_disp_rate
+    y = df_sites.mean_disp_rate*0.5
 
     linstats = linregress(x, y)
     yline = linstats.slope * x + linstats.intercept
@@ -141,11 +140,12 @@ axes[3].set_ylabel('SOC stock (kg m$^{-2}$)')
 # ==========================================================
 # Final formatting
 # ==========================================================
-
-plt.tight_layout()
+for ax in axes:
+    ax.set_box_aspect(1)
+#plt.tight_layout()
 if save_fig:
     plt.savefig(
-        f'{figoutdir}/Displacement_CStock_Covariates.jpg',
+        'figs/Displacement_CStock_Covariates.jpg',
         dpi=300,
         bbox_inches='tight'
     )
